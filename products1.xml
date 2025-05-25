@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+  <product>
+    <id>1</id>
+    <name>Dog Vitamins</name>
+    <price>150.00</price>
+    <image>./assets/images/product-1.jpg</image>
+    <hoverImage>./assets/images/product-1_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>1</reviews>
+    <category>Dog Supplement</category>
+    <stock>5</stock>
+  </product>
+  <product>
+    <id>2</id>
+    <name>Cat Multivitamins</name>
+    <price>120.00</price>
+    <image>./assets/images/product-2.jpg</image>
+    <hoverImage>./assets/images/product-2_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>3</reviews>
+    <category>Cat Supplement</category>
+    <stock>28</stock>
+  </product>
+  <product>
+    <id>3</id>
+    <name>Grain-Free Dog Food</name>
+    <price>280.00</price>
+    <image>./assets/images/product-3.jpg</image>
+    <hoverImage>./assets/images/product-3_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>12</reviews>
+    <category>Dog Food</category>
+    <stock>45</stock>
+  </product>
+  <product>
+    <id>4</id>
+    <name>Cat Tuna Treats</name>
+    <price>85.00</price>
+    <image>./assets/images/product-4.jpg</image>
+    <hoverImage>./assets/images/product-4_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>6</reviews>
+    <category>Cat Treats</category>
+    <stock>43</stock>
+  </product>
+  <product>
+    <id>5</id>
+    <name>Chewable Dog Toy</name>
+    <price>55.00</price>
+    <image>./assets/images/product-5.jpg</image>
+    <hoverImage>./assets/images/product-5_0.jpg</hoverImage>
+    <rating>3</rating>
+    <reviews>2</reviews>
+    <category>Dog Toys</category>
+    <stock>44</stock>
+  </product>
+  <product>
+    <id>6</id>
+    <name>Interactive Cat Laser Toy</name>
+    <price>70.00</price>
+    <image>./assets/images/product-6.jpg</image>
+    <hoverImage>./assets/images/product-6_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>10</reviews>
+    <category>Cat Toys</category>
+    <stock>35</stock>
+  </product>
+  <product>
+    <id>7</id>
+    <name>Dog Joint Supplement</name>
+    <price>190.00</price>
+    <image>./assets/images/product-7.jpg</image>
+    <hoverImage>./assets/images/product-7_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>5</reviews>
+    <category>Dog Supplement</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>8</id>
+    <name>Cat Hairball Control</name>
+    <price>140.00</price>
+    <image>./assets/images/product-8.jpg</image>
+    <hoverImage>./assets/images/product-8_0.jpg</hoverImage>
+    <rating>3</rating>
+    <reviews>3</reviews>
+    <category>Cat Supplement</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>9</id>
+    <name>Dental Chews for Dogs</name>
+    <price>110.00</price>
+    <image>./assets/images/product-9.jpg</image>
+    <hoverImage>./assets/images/product-9_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>7</reviews>
+    <category>Dog Treats</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>10</id>
+    <name>Catnip Mice Toys</name>
+    <price>45.00</price>
+    <image>./assets/images/product-10.jpg</image>
+    <hoverImage>./assets/images/product-10_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>9</reviews>
+    <category>Cat Toys</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>11</id>
+    <name>Organic Dog Shampoo</name>
+    <price>95.00</price>
+    <image>./assets/images/product-11.jpg</image>
+    <hoverImage>./assets/images/product-11_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>4</reviews>
+    <category>Dog Grooming</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>12</id>
+    <name>Cat Grooming Brush</name>
+    <price>60.00</price>
+    <image>./assets/images/product-12.jpg</image>
+    <hoverImage>./assets/images/product-12_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>8</reviews>
+    <category>Cat Grooming</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>13</id>
+    <name>Puppy Starter Food</name>
+    <price>210.00</price>
+    <image>./assets/images/product-13.jpg</image>
+    <hoverImage>./assets/images/product-13_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>11</reviews>
+    <category>Dog Food</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>14</id>
+    <name>Kitten Milk Formula</name>
+    <price>130.00</price>
+    <image>./assets/images/product-14.jpg</image>
+    <hoverImage>./assets/images/product-14_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>6</reviews>
+    <category>Cat Food</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>15</id>
+    <name>Dog Calming Chews</name>
+    <price>160.00</price>
+    <image>./assets/images/product-15.jpg</image>
+    <hoverImage>./assets/images/product-15_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>5</reviews>
+    <category>Dog Supplement</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>16</id>
+    <name>Cat Probiotic Powder</name>
+    <price>145.00</price>
+    <image>./assets/images/product-16.jpg</image>
+    <hoverImage>./assets/images/product-16_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>4</reviews>
+    <category>Cat Supplement</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>17</id>
+    <name>Freeze-Dried Dog Treats</name>
+    <price>90.00</price>
+    <image>./assets/images/product-17.jpg</image>
+    <hoverImage>./assets/images/product-17_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>9</reviews>
+    <category>Dog Treats</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>18</id>
+    <name>Cat Collagen Supplement</name>
+    <price>155.00</price>
+    <image>./assets/images/product-18.jpg</image>
+    <hoverImage>./assets/images/product-18_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>3</reviews>
+    <category>Cat Supplement</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>19</id>
+    <name>Rubber Dog Ball</name>
+    <price>35.00</price>
+    <image>./assets/images/product-19.jpg</image>
+    <hoverImage>./assets/images/product-19_0.jpg</hoverImage>
+    <rating>3</rating>
+    <reviews>2</reviews>
+    <category>Dog Toys</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>20</id>
+    <name>Cat Climbing Tree</name>
+    <price>450.00</price>
+    <image>./assets/images/product-20.jpg</image>
+    <hoverImage>./assets/images/product-20_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>10</reviews>
+    <category>Cat Furniture</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>21</id>
+    <name>Dog Paw Balm</name>
+    <price>70.00</price>
+    <image>./assets/images/product-21.jpg</image>
+    <hoverImage>./assets/images/product-21_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>4</reviews>
+    <category>Dog Grooming</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>22</id>
+    <name>Cat Dental Spray</name>
+    <price>95.00</price>
+    <image>./assets/images/product-22.jpg</image>
+    <hoverImage>./assets/images/product-22_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>5</reviews>
+    <category>Cat Grooming</category>
+    <stock>45</stock>
+  </product>
+  <product>
+    <id>23</id>
+    <name>Dog Flea Collar</name>
+    <price>100.00</price>
+    <image>./assets/images/product-23.jpg</image>
+    <hoverImage>./assets/images/product-23_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>6</reviews>
+    <category>Dog Health</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>24</id>
+    <name>Cat Flea Drops</name>
+    <price>115.00</price>
+    <image>./assets/images/product-24.jpg</image>
+    <hoverImage>./assets/images/product-24_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>7</reviews>
+    <category>Cat Health</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>25</id>
+    <name>Dog Travel Bowl</name>
+    <price>50.00</price>
+    <image>./assets/images/product-25.jpg</image>
+    <hoverImage>./assets/images/product-25_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>3</reviews>
+    <category>Dog Accessories</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>26</id>
+    <name>Cat Litter Deodorizer</name>
+    <price>65.00</price>
+    <image>./assets/images/product-26.jpg</image>
+    <hoverImage>./assets/images/product-26_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>2</reviews>
+    <category>Cat Accessories</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>27</id>
+    <name>Dog Ear Cleaner</name>
+    <price>80.00</price>
+    <image>./assets/images/product-27.jpg</image>
+    <hoverImage>./assets/images/product-27_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>4</reviews>
+    <category>Dog Grooming</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>28</id>
+    <name>Cat Calming Collar</name>
+    <price>85.00</price>
+    <image>./assets/images/product-28.jpg</image>
+    <hoverImage>./assets/images/product-28_0.jpg</hoverImage>
+    <rating>4</rating>
+    <reviews>6</reviews>
+    <category>Cat Health</category>
+    <stock>50</stock>
+  </product>
+  <product>
+    <id>29</id>
+    <name>Dog Raincoat</name>
+    <price>140.00</price>
+    <image>./assets/images/product-29.jpg</image>
+    <hoverImage>./assets/images/product-29_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>8</reviews>
+    <category>Dog Clothing</category>
+    <stock>45</stock>
+  </product>
+  <product>
+    <id>30</id>
+    <name>Cat Hoodie</name>
+    <price>125.00</price>
+    <image>./assets/images/product-30.jpg</image>
+    <hoverImage>./assets/images/product-30_0.jpg</hoverImage>
+    <rating>5</rating>
+    <reviews>9</reviews>
+    <category>Cat Clothing</category>
+    <stock>40</stock>
+  </product>
+  <product>
+    <id>5035</id>
+    <name>Ben10</name>
+    <price>123</price>
+    <image>123</image>
+    <hoverImage>123</hoverImage>
+    <rating>4</rating>
+    <reviews>32</reviews>
+    <category>Cat Accessories</category>
+    <stock>123</stock>
+  </product>
+  <product>
+    <id>3351</id>
+    <name>123</name>
+    <price>123</price>
+    <image>123</image>
+    <hoverImage>123</hoverImage>
+    <rating>5</rating>
+    <reviews>123</reviews>
+    <category>Dog Toys</category>
+    <stock>123</stock>
+  </product>
+  <product>
+    <id>6393</id>
+    <name>123333</name>
+    <price>123</price>
+    <image>123</image>
+    <hoverImage>123</hoverImage>
+    <rating>5</rating>
+    <reviews>123</reviews>
+    <category>Dog Toys</category>
+    <stock>123</stock>
+  </product>
+  <product>
+    <id>8579</id>
+    <name>qwe111</name>
+    <price>123</price>
+    <image>23</image>
+    <hoverImage>123</hoverImage>
+    <rating>3</rating>
+    <reviews>123</reviews>
+    <category>Dog Treats</category>
+    <stock>123</stock>
+  </product>
+  <product>
+    <id>5389</id>
+    <name>JKJK</name>
+    <price>13</price>
+    <image>123</image>
+    <hoverImage>123</hoverImage>
+    <rating>5</rating>
+    <reviews>123</reviews>
+    <category>Dog Treats</category>
+    <stock>32</stock>
+  </product>
+<product><id/><name/><description/><price>0</price><image/><category/><stock>0</stock></product></products>

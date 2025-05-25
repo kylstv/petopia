@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Product Management</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Carter+One&family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <style>
+      body {
+      font-family: 'Nunito Sans', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container layout */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar styles (from your previous style) */
+    .sidebar {
+      width: 280px;
+      background-color: var(--raisin-black);
+      color: var(--white);
+      padding: 30px 0;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-logo {
+      padding: 0 25px 25px;
+      border-bottom: 1px solid var(--onyx);
+      margin-bottom: 25px;
+    }
+    .sidebar-logo h1 {
+      font-family: 'Bangers', cursive;
+      font-size: 24px;
+    }
+    .sidebar-nav {
+      padding: 0 15px;
+    }
+    .sidebar-menu {
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar-menu-item {
+      list-style: none;
+      margin-bottom: 5px;
+    }
+    .sidebar-menu-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      color: var(--battleship-gray);
+      border-radius: var(--radius-10);
+      transition: var(--transition-1);
+      text-decoration: none;
+    }
+    .sidebar-menu-link.active,
+    .sidebar-menu-link:hover {
+      background-color: var(--eerie-black);
+      color: var(--portland-orange);
+    }
+    .sidebar-menu-link ion-icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    /* Main content styles */
+    .main-content {
+      margin-left: 280px;
+      padding: 30px;
+      flex: 1;
+    }
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .dashboard-title {
+      font-size: var(--fs-2);
+      color: var(--eerie-black);
+      font-family: 'Bangers', cursive;
+    }
+
+    /* Card styles */
+    .card {
+      background-color: var(--white);
+      border-radius: var(--radius-10);
+      box-shadow: var(--shadow-1);
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      color: var(--eerie-black);
+      font-size: var(--fs-4);
+      margin: 0;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: var(--radius-10);
+      box-shadow: var(--shadow-1);
+    }
+    th, td {
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--platinum);
+      text-align: left;
+    }
+    th {
+      background-color: var(--platinum);
+      font-weight: var(--fw-700);
+      color: var(--eerie-black);
+    }
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+
+    /* Buttons & form styles */
+    .action-btn {
+      padding: 8px 12px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      border-radius: var(--radius-4);
+      cursor: pointer;
+      border: none;
+      font-size: var(--fs-6);
+      font-weight: var(--fw-700);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition-1);
+    }
+    .edit-btn {
+      background-color: var(--amber);
+      color: var(--black);
+    }
+    .edit-btn:hover {
+      background-color: hsl(45, 100%, 45%);
+    }
+    .delete-btn {
+      background-color: var(--bittersweet);
+      color: var(--white);
+    }
+    .delete-btn:hover {
+      background-color: hsl(9, 96%, 60%);
+    }
+
+    /* Product form card (popup overlay) */
+    #productFormCard {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: var(--radius-10);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: none; /* Hidden initially */
+    }
+    #productFormCard.show {
+      display: block;
+    }
+    #productFormCard .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #productFormCard h2 {
+      margin: 0;
+      font-family: 'Bangers', cursive;
+    }
+    #productFormCard .close-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--battleship-gray);
+    }
+    #productForm {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      margin-bottom: 5px;
+      font-weight: var(--fw-700);
+      color: var(--eerie-black);
+    }
+    .form-control {
+      padding: 12px 15px;
+      border: 1px solid var(--platinum);
+      border-radius: var(--radius-4);
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 16px;
+    }
+    .btn-group {
+      grid-column: 1 / -1;
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius-4);
+      cursor: pointer;
+      font-weight: var(--fw-700);
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background-color: var(--portland-orange);
+      color: #fff;
+    }
+    .btn-secondary {
+      background-color: var(--eerie-black);
+      color: #fff;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Responsive adjustments */
+    @media(max-width: 992px){
+      #productForm {
+        grid-template-columns: 1fr;
+      }
+    }
+    .table-responsive {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--white);
+      border-radius: var(--radius-10);
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+    }
+    
+    .product-table th,
+    .product-table td {
+      padding: 15px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--platinum);
+      vertical-align: middle;
+    }
+    
+    .product-table th {
+      background-color: var(--eerie-black);
+      color: var(--white);
+      font-weight: var(--fw-700);
+      font-size: var(--fs-6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .product-table tbody tr {
+      transition: var(--transition-1);
+    }
+    
+    .product-table tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .product-table tbody tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+    
+    .product-table tbody tr:nth-child(even):hover {
+      background-color: #f0f1f2;
+    }
+    .product-image {
+        width: 40px;
+        height: 40px;
+      }
+    
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1 class="logo">Store</h1>
+    </div>
+    <nav class="sidebar-nav">
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item">
+          <a href="#" class="sidebar-menu-link">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="admin.html" class="sidebar-menu-link">
+            <ion-icon name="bag-outline"></ion-icon>
+            <span>Products</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="category.php" class="sidebar-menu-link">
+            <ion-icon name="pricetags-outline"></ion-icon>
+            <span>Categories</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="transactions.php" class="sidebar-menu-link active">
+            <ion-icon name="cart-outline"></ion-icon>
+            <span>Transactions</span>
+          </a>
+        </li>
+        <li class="sidebar-menu-item">
+          <a href="customers.php" class="sidebar-menu-link">
+            <ion-icon name="people-outline"></ion-icon>
+            <span>Customers</span>
+          </a>
+        <li class="sidebar-menu-item">
+          <a href="logout.php" class="sidebar-menu-link">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <span>Logout</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Product Management</h1>
+       <button class="btn btn-primary" id="addProductBtn" style="color: black;">
+  <ion-icon name="add-outline"></ion-icon> Add New Product
+</button>
+
+      </div>
+      
+      <div id="productFormCard">
+  <div class="card">
+    <div class="card-header">
+      <h2 id="formTitle">Add New Product</h2>
+      <button class="close-button" id="closeFormBtn" title="Close">×</button>
+    </div>
+    <form id="productForm">
+      <input type="hidden" id="productId" name="id" />
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <!-- Product Name -->
+        <div class="form-group">
+          <label for="name">Product Name</label>
+          <input type="text" class="form-control" id="name" name="name" required />
+        </div>
+        <!-- Price -->
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price" name="price" step="0.01" required />
+        </div>
+        <!-- Image URL -->
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input type="text" class="form-control" id="image" name="image" required />
+        </div>
+        <!-- Hover Image URL -->
+        <div class="form-group">
+          <label for="hoverImage">Hover Image URL</label>
+          <input type="text" class="form-control" id="hoverImage" name="hoverImage" required />
+        </div>
+        <!-- Rating -->
+        <div class="form-group">
+          <label for="rating">Rating (1-5)</label>
+          <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required />
+        </div>
+        <!-- Stock -->
+        <div class="form-group">
+          <label for="stock">Stock Quantity</label>
+          <input type="number" class="form-control" id="stock" name="stock" min="0" required />
+        </div>
+        <!-- Reviews -->
+        <div class="form-group">
+          <label for="reviews">Reviews Count</label>
+          <input type="number" class="form-control" id="reviews" name="reviews" required />
+        </div>
+        <!-- Category -->
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="category" required>
+            <option value="">Select a category</option>
+            <!-- categories will be populated dynamically -->
+          </select>
+        </div>
+        <!-- Buttons -->
+        <div class="btn-group" style="margin-top:20px;">
+          <button type="submit" class="btn btn-primary" id="saveProductBtn" style="color: black;">Save Product</button>
+<button type="button" class="btn btn-secondary" id="cancelBtn" style="color: black;">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+      
+      <!-- Products Table Card -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Products List</h2>
+          <div class="search-container">
+            <input type="text" class="form-control" id="searchProduct" placeholder="Search products...">
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="product-table" id="productTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Reviews</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let xmlDoc;
+    let productTable;
+    let form;
+    let formMode = 'add'; // 'add' or 'edit'
+    let addProductBtn = document.getElementById('addProductBtn');
+    let closeFormBtn = document.getElementById('closeFormBtn');
+    let cancelBtn = document.getElementById('cancelBtn');
+    let productFormCard = document.getElementById('productFormCard');
+    let formTitle = document.getElementById('formTitle');
+    let searchProduct = document.getElementById('searchProduct');
+
+    window.onload = function () {
+      productTable = document.querySelector('#productTable tbody');
+      form = document.getElementById('productForm');
+      loadXML();
+
+      // Event listeners
+      addProductBtn.addEventListener('click', showAddProductForm);
+      closeFormBtn.addEventListener('click', hideProductForm);
+      cancelBtn.addEventListener('click', hideProductForm);
+      searchProduct.addEventListener('input', filterProducts);
+
+      form.onsubmit = function (e) {
+        e.preventDefault();
+
+        const idField = document.getElementById('productId');
+        const formData = new FormData(form);
+
+        if (formMode === 'edit' && idField.value) {
+          // Update existing product
+          fetch('update_product.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.text())
+          .then(msg => {
+            alert(msg);
+            loadXML();
+            hideProductForm();
+          });
+        } else {
+          fetch('add_product.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.text())
+    .then(msg => {
+      alert(msg);
+      loadXML();
+      hideProductForm();
+    })
+    .catch(error => {
+      alert('Error adding product: ' + error);
+    });
+  }
+};
+    };
+
+    function loadXML() {
+      fetch('products1.xml')
+        .then(response => response.text())
+        .then(data => {
+          let parser = new DOMParser();
+          xmlDoc = parser.parseFromString(data, 'text/xml');
+          displayProducts();
+          populateCategories();
+          updateProductCount();
+        });
+    }
+
+    function displayProducts() {
+      productTable.innerHTML = '';
+      const products = xmlDoc.getElementsByTagName('product');
+
+      for (let i = 0; i < products.length; i++) {
+        const id = products[i].getElementsByTagName('id')[0].textContent;
+        const name = products[i].getElementsByTagName('name')[0].textContent;
+        const price = products[i].getElementsByTagName('price')[0].textContent;
+        const image = products[i].getElementsByTagName('image')[0].textContent;
+        const rating = products[i].getElementsByTagName('rating')[0].textContent;
+        const reviews = products[i].getElementsByTagName('reviews')[0].textContent;
+        const stock = products[i].getElementsByTagName('stock')[0].textContent;
+        const category = products[i].getElementsByTagName('category')[0].textContent;
+
+        let row = productTable.insertRow();
+        
+        // Check if stock is low (less than 10)
+        const stockClass = parseInt(stock) < 10 ? 'style="color: var(--bittersweet); font-weight: bold;"' : '';
+        
+        row.innerHTML = `
+          <td>${id}</td>
+          <td><img src="${image}" class="product-image" alt="${name}"/></td>
+          <td>${name}</td>
+          <td>$${parseFloat(price).toFixed(2)}</td>
+          <td>${rating} <ion-icon name="star" style="color: var(--amber);"></ion-icon></td>
+          <td>${reviews}</td>
+          <td ${stockClass}>${stock}</td>
+          <td>${category}</td>
+          <td style="min-width: 160px;">
+            <button class="action-btn edit-btn" onclick="editProduct(${id})">
+              <ion-icon name="create-outline"></ion-icon> Edit
+            </button>
+            <button class="action-btn delete-btn" onclick="deleteProduct(${id})">
+              <ion-icon name="trash-outline"></ion-icon> Delete
+            </button>
+          </td>
+        `;
+      }
+    }
+
+    function populateCategories() {
+      const categorySelect = document.getElementById('category');
+      const products = xmlDoc.getElementsByTagName('product');
+      const categories = new Set();
+      
+      // Extract unique categories from XML
+      for (let i = 0; i < products.length; i++) {
+        const category = products[i].getElementsByTagName('category')[0].textContent;
+        categories.add(category);
+      }
+      
+      // Clear existing options except the first one
+      categorySelect.innerHTML = '<option value="">Select a category</option>';
+      
+      // Sort categories alphabetically and add to select
+      const sortedCategories = Array.from(categories).sort();
+      sortedCategories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+      });
+    }
+
+    function editProduct(id) {
+      formMode = 'edit';
+      formTitle.textContent = 'Edit Product';
+      productFormCard.style.display = 'block';
+      
+      const products = xmlDoc.getElementsByTagName('product');
+      for (let i = 0; i < products.length; i++) {
+        if (products[i].getElementsByTagName('id')[0].textContent == id) {
+          document.getElementById('productId').value = id;
+          ['name', 'price', 'image', 'hoverImage', 'rating', 'reviews', 'stock', 'category'].forEach(field => {
+            document.getElementById(field).value = products[i].getElementsByTagName(field)[0].textContent;
+          });
+          break;
+        }
+      }
+      
+      productFormCard.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function deleteProduct(id) {
+  if (confirm('Are you sure you want to delete this product?')) {
+    // Method 1: Using FormData
+    const formData = new FormData();
+    formData.append('id', id);
+    
+    // Log what we're sending (for debugging)
+    console.log('Deleting product with ID:', id);
+    
+    fetch('delete_product.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      console.log('Response status:', response.status);
+      return response.text();
+    })
+    .then(data => {
+      console.log('Response data:', data);
+      // Since the PHP does a redirect, we might not get here
+      // But just in case, we'll reload the XML
+      loadXML();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error deleting product: ' + error);
+      
+      // As a fallback, try an alternative approach
+      deleteProductAlternative(id);
+    });
+  }
+}
+
+function showAddProductForm() {
+  formMode = 'add';
+  formTitle.textContent = 'Add New Product';
+  form.reset();
+  
+  // Generate a random ID between 1000 and 9999
+  const randomId = Math.floor(1000 + Math.random() * 9000);
+  document.getElementById('productId').value = randomId;
+  
+  // Refresh categories in case new ones were added
+  populateCategories();
+  
+  productFormCard.style.display = 'block';
+  
+  // Scroll to form
+  productFormCard.scrollIntoView({ behavior: 'smooth' });
+}
+
+    function hideProductForm() {
+      productFormCard.style.display = 'none';
+      form.reset();
+    }
+
+    function updateProductCount() {
+      const products = xmlDoc.getElementsByTagName('product');
+      document.getElementById('productCount').textContent = products.length;
+    }
+
+    function filterProducts() {
+      const searchTerm = searchProduct.value.toLowerCase();
+      const rows = productTable.querySelectorAll('tr');
+      
+      rows.forEach(row => {
+        const name = row.cells[2].textContent.toLowerCase();
+        const category = row.cells[6].textContent.toLowerCase();
+        
+        if (name.includes(searchTerm) || category.includes(searchTerm)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

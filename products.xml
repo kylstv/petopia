@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+    <product>
+        <id>1</id>
+        <name>Dog Vitamins</name>
+        <price>150.00</price>
+        <image>./assets/images/product-1.jpg</image>
+        <hoverImage>./assets/images/product-1_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>1</reviews>
+    </product>
+    <product>
+        <id>2</id>
+        <name>Shrimp Pellets</name>
+        <price>450.00</price>
+        <image>./assets/images/product-2.jpg</image>
+        <hoverImage>./assets/images/product-2_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>3</id>
+        <name>Wardley Shrimp Pellets</name>
+        <price>450.00</price>
+        <image>./assets/images/product-3.jpg</image>
+        <hoverImage>./assets/images/product-3_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>4</id>
+        <name>Fruit Blend</name>
+        <price>490.00</price>
+        <image>./assets/images/product-4.jpg</image>
+        <hoverImage>./assets/images/product-4_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>5</id>
+        <name>Pet Toy</name>
+        <price>85.00</price>
+        <image>./assets/images/product-5.jpg</image>
+        <hoverImage>./assets/images/product-5_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>6</id>
+        <name>Multi-Cat Diffuser</name>
+        <price>85.00</price>
+        <image>./assets/images/product-6.jpg</image>
+        <hoverImage>./assets/images/product-6_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>7</id>
+        <name>Pro Plan Veterinary Diets</name>
+        <price>85.00</price>
+        <image>./assets/images/product-7.jpg</image>
+        <hoverImage>./assets/images/product-7_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+    <product>
+        <id>8</id>
+        <name>Urinary Care</name>
+        <price>550.00</price>
+        <image>./assets/images/product-8.jpg</image>
+        <hoverImage>./assets/images/product-8_0.jpg</hoverImage>
+        <rating>5</rating>
+        <reviews>0</reviews>
+    </product>
+</products>

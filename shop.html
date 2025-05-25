@@ -1,0 +1,1113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Petopia - Hight Quality Pet Food</title>
+  <meta name="title" content="Petopia - Hight Quality Pet Food">
+  <meta name="description" content="This is an eCommerce html template made by codewithsadee">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Carter+One&family=Nunito+Sans:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.jpg">
+  
+  <!-- Icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+  <style>
+    /* Additional styles only for elements not in the main CSS */
+    
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--eerie-black);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--radius-4);
+      font-size: var(--fs-6);
+      font-weight: var(--fw-700);
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-1);
+      z-index: 5;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 0.5rem;
+}
+
+.pagination-btn {
+  padding: 0.5rem 1rem;
+  background-color: var(--mint-cream);
+  border: 1px solid var(--eerie-black);
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.pagination-btn.active {
+  background-color: var(--eerie-black);
+  color: white;
+}
+/* Add these CSS styles to your existing <style> section in the <head> */
+
+.stock-info {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+.stock-available {
+  color: #28a745;
+}
+
+.stock-low {
+  color: #ffc107;
+}
+
+.stock-out {
+  color: #dc3545;
+}
+
+.product-card.out-of-stock {
+  opacity: 0.6;
+  position: relative;
+}
+
+.product-card.out-of-stock::after {
+  content: 'OUT OF STOCK';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(220, 53, 69, 0.9);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.card-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #6c757d;
+}
+
+.card-action-btn:disabled:hover {
+  background-color: #6c757d;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header active" data-header>
+    <div class="container">
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="toggle menu">
+        <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+        <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+      </button>
+
+      <a href="#" class="logo">Petopia</a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li>
+            <a href="product.html" class="navbar-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#shop" class="navbar-link">Shop</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Collections</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link">Blog</a>
+          </li>
+
+        </ul>
+
+        <a href="#" class="navbar-action-btn">Log In</a>
+      </nav>
+
+      <div class="header-actions">
+
+        <button class="action-btn" aria-label="Search">
+          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <button class="action-btn user" aria-label="User">
+          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+        </button>
+
+        <button class="action-btn" id="cartIcon" aria-label="cart">
+          <ion-icon name="bag-handle-outline" aria-hidden="true"></ion-icon>
+          <span class="btn-badge" id="cartCount">0</span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+  <!-- PRODUCT SECTION -->
+  <section class="section product" id="shop" aria-label="product">
+    <div class="container">
+      <ul class="grid-list" id="productList"></ul>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+        <!-- 
+        - #BRAND
+      -->
+
+      <section class="section brand" aria-label="brand">
+        <div class="container">
+
+          <h2 class="h2 section-title">
+            <span class="span">Popular</span> Brands
+          </h2>
+
+          <ul class="has-scrollbar">
+
+            <li class="scrollbar-item">
+              <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+                <img src="./assets/images/brand-acana.png" width="150" height="150" loading="lazy" alt="brand logo"
+                  class="img-cover">
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+                <img src="./assets/images/brand-eukanuba.png" width="150" height="150" loading="lazy" alt="brand logo"
+                  class="img-cover">
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+                <img src="./assets/images/brand-pedigree.png" width="150" height="150" loading="lazy" alt="brand logo"
+                  class="img-cover">
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+                <img src="./assets/images/brand-royalcanin.png" width="150" height="150" loading="lazy" alt="brand logo"
+                  class="img-cover">
+              </div>
+            </li>
+
+            <li class="scrollbar-item">
+              <div class="brand-card img-holder" style="--width: 150; --height: 150;">
+                <img src="./assets/images/brand-whiskas.png" width="150" height="150" loading="lazy" alt="brand logo"
+                  class="img-cover">
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer" style="background-image: url('./assets/images/footer-bg.jpg')">
+
+    <div class="footer-top section">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">Kitter</a>
+
+          <p class="footer-text">
+            If you have any question, please contact us at <a href="mailto:jnamillvillareal@gmail.com"
+              class="link">jnamillvillareal@gmail.com</a>
+          </p>
+
+          <ul class="contact-list">
+
+            <li class="contact-item">
+              <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+
+              <address class="address">
+                Bustos, Bulacan
+              </address>
+            </li>
+
+            <li class="contact-item">
+              <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+              <a href="09942516738" class="contact-link">09942516738</a>
+            </li>
+
+          </ul>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Corporate</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Careers</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contact Us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">FAQs</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Vendors</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Affiliate Program</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Information</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Online Store</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Privacy Policy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Refund Policy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Shipping Policy</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Terms of Service</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Track Order</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Services</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Grooming</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Positive Dog Training</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Veterinary Services</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Petco Insurance</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Pet Adoption</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Resource Center</a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2025 Made with ♥ by <a href="#" class="copyright-link">Web2.</a>
+        </p>
+
+        <img src="./assets/images/payment.png" width="397" height="32" loading="lazy" alt="payment method" class="img">
+
+      </div>
+    </div>
+
+  </footer>
+  
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
+
+  <!-- JS -->
+  <script>
+    // Navigation Toggle
+    const navToggleBtn = document.querySelector('[data-nav-toggle-btn]');
+    const navbar = document.querySelector('[data-navbar]');
+    const header = document.querySelector('[data-header]');
+    
+    navToggleBtn.addEventListener('click', function() {
+      navToggleBtn.classList.toggle('active');
+      navbar.classList.toggle('active');
+    });
+    
+    // Header Active on Scroll
+    window.addEventListener('scroll', function() {
+      if (window.scrollY >= 100) {
+        header.classList.add('active');
+      } else {
+        header.classList.remove('active');
+      }
+    });
+    
+    // Back to top button
+    const backTopBtn = document.querySelector('[data-back-top-btn]');
+    
+    window.addEventListener('scroll', function() {
+      if (window.scrollY >= 100) {
+        backTopBtn.classList.add('active');
+      } else {
+        backTopBtn.classList.remove('active');
+      }
+    });
+    
+    // Product cart functionality
+    let cart = [];
+
+    function loadCartFromStorage() {
+      const savedCart = localStorage.getItem('catProductsCart');
+      if (savedCart) {
+        cart = JSON.parse(savedCart);
+        updateCartCount();
+      }
+    }
+
+    function saveCartToStorage() {
+      localStorage.setItem('catProductsCart', JSON.stringify(cart));
+    }
+// Modified Product Loading and Pagination with Category Filtering
+let productsPerPage = 6;
+let currentPage = 1;
+let allProducts = [];
+let filteredProducts = [];
+let currentCategory = 'all'; // Default to show all products
+
+function loadProducts() {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'products1.xml', true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const xml = xhr.responseXML;
+      const products = xml.getElementsByTagName('product');
+      allProducts = Array.from(products);
+      
+      // Initialize with all products
+      filteredProducts = [...allProducts];
+      
+      // Setup category buttons from the XML data
+      setupCategoryFilters();
+      
+      // Display initial page
+      displayPage(currentPage);
+      setupPagination(filteredProducts.length);
+    }
+  };
+  xhr.send();
+}
+
+function setupCategoryFilters() {
+  // Get unique categories from products
+  const categories = new Set();
+  categories.add('all'); // Add 'all' as default category
+  
+  allProducts.forEach(product => {
+    if (product.getElementsByTagName('category').length > 0) {
+      const category = product.getElementsByTagName('category')[0].textContent;
+      categories.add(category);
+    }
+  });
+  
+  // Create category filter buttons
+  const categoryContainer = document.createElement('div');
+  categoryContainer.className = 'category-filter';
+  categoryContainer.style.display = 'flex';
+  categoryContainer.style.justifyContent = 'center';
+  categoryContainer.style.gap = '10px';
+  categoryContainer.style.marginBottom = '20px';
+  
+  categories.forEach(category => {
+    const button = document.createElement('button');
+    button.textContent = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize first letter
+    button.className = 'category-btn';
+    button.style.padding = '15px 20px';
+    button.style.border = '1px solid #ddd';
+    button.style.borderRadius = '5px';
+    button.style.cursor = 'pointer';
+    button.style.backgroundColor = category === currentCategory ? '#333' : '#f5f5f5';
+    button.style.color = category === currentCategory ? '#fff' : '#333';
+    
+    button.addEventListener('click', () => {
+      // Update current category
+      currentCategory = category;
+      
+      // Update button styles
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.style.backgroundColor = '#f5f5f5';
+        btn.style.color = '#333';
+      });
+      button.style.backgroundColor = '#333';
+      button.style.color = '#fff';
+      
+      // Filter products
+      filterProductsByCategory(category);
+      
+      // Reset to first page
+      currentPage = 1;
+      displayPage(currentPage);
+      setupPagination(filteredProducts.length);
+    });
+    
+    categoryContainer.appendChild(button);
+  });
+  
+  // Insert category filter before product list
+  const productSection = document.querySelector('.section.product .container');
+  productSection.insertBefore(categoryContainer, document.getElementById('productList'));
+}
+
+function filterProductsByCategory(category) {
+  if (category === 'all') {
+    filteredProducts = [...allProducts];
+  } else {
+    filteredProducts = allProducts.filter(product => {
+      if (product.getElementsByTagName('category').length > 0) {
+        return product.getElementsByTagName('category')[0].textContent === category;
+      }
+      return false;
+    });
+  }
+}
+
+// Replace your existing displayPage function with this updated version:
+
+function displayPage(page) {
+  const productList = document.getElementById('productList');
+  productList.innerHTML = '';
+  
+  const start = (page - 1) * productsPerPage;
+  const end = Math.min(start + productsPerPage, filteredProducts.length);
+  const productsToDisplay = filteredProducts.slice(start, end);
+  
+  if (productsToDisplay.length === 0) {
+    productList.innerHTML = '<div style="text-align: center; width: 100%; padding: 20px;">No products found in this category.</div>';
+    return;
+  }
+
+  productsToDisplay.forEach(product => {
+    const id = product.getElementsByTagName('id')[0].textContent;
+    const name = product.getElementsByTagName('name')[0].textContent;
+    const price = parseFloat(product.getElementsByTagName('price')[0].textContent);
+    const image = product.getElementsByTagName('image')[0].textContent;
+    const hoverImage = product.getElementsByTagName('hoverImage')[0].textContent;
+    const rating = parseInt(product.getElementsByTagName('rating')[0].textContent);
+    const reviews = product.getElementsByTagName('reviews')[0].textContent;
+    
+    // GET STOCK INFORMATION
+    const stockElement = product.getElementsByTagName('stock')[0];
+    const stock = stockElement ? parseInt(stockElement.textContent) : 0;
+
+    const formattedPrice = `₱${price.toFixed(2)}`;
+    
+    // DETERMINE STOCK STATUS
+    let stockClass = 'stock-available';
+    let stockText = `${stock} in stock`;
+    let buttonDisabled = '';
+    let cardClass = '';
+    
+    if (stock === 0) {
+      stockClass = 'stock-out';
+      stockText = 'Out of stock';
+      buttonDisabled = 'disabled';
+      cardClass = 'out-of-stock';
+    } else if (stock <= 5) {
+      stockClass = 'stock-low';
+      stockText = `Only ${stock} left`;
+    }
+
+    const productCard = `
+      <li>
+        <div class="product-card ${cardClass}">
+          <div class="card-banner img-holder" style="--width: 360; --height: 360;">
+            <img src="${image}" width="360" height="360" loading="lazy" alt="${name}" class="img-cover default">
+            <img src="${hoverImage}" width="360" height="360" loading="lazy" alt="${name}" class="img-cover hover">
+            <button class="card-action-btn" aria-label="add to cart" title="Add To Cart" 
+              data-id="${id}" 
+              data-name="${name}" 
+              data-price="${price}" 
+              data-image="${image}"
+              data-stock="${stock}"
+              ${buttonDisabled}>
+              <ion-icon name="bag-add-outline" aria-hidden="true"></ion-icon>
+            </button>
+          </div>
+          <div class="card-content">
+            <div class="wrapper">
+              <div class="rating-wrapper">
+                ${'<ion-icon name="star" aria-hidden="true"></ion-icon>'.repeat(rating)}
+              </div>
+              <span class="span">(${reviews})</span>
+            </div>
+            <h3 class="h3">
+              <a href="#" class="card-title">${name}</a>
+            </h3>
+            <data class="card-price" value="${price}">${formattedPrice}</data>
+            <div class="stock-info ${stockClass}">${stockText}</div>
+          </div>
+        </div>
+      </li>
+    `;
+    productList.innerHTML += productCard;
+  });
+
+  addCartButtonListeners();
+}
+
+function setupPagination(totalProducts) {
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+  const paginationContainer = document.getElementById('pagination');
+  paginationContainer.innerHTML = '';
+
+  // Skip pagination if only one page
+  if (totalPages <= 1) return;
+
+  // Create pagination buttons with styling similar to image
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement('button');
+    btn.textContent = i;
+    btn.classList.add('pagination-btn');
+    
+    // Style similar to image
+    btn.style.width = '36px';
+    btn.style.height = '36px';
+    btn.style.display = 'flex';
+    btn.style.justifyContent = 'center';
+    btn.style.alignItems = 'center';
+    btn.style.borderRadius = '4px';
+    btn.style.fontWeight = 'bold';
+    btn.style.cursor = 'pointer';
+    btn.style.transition = 'all 0.3s ease';
+    
+    if (i === currentPage) {
+      btn.classList.add('active');
+      btn.style.backgroundColor = '#333';
+      btn.style.color = '#fff';
+      btn.style.border = '1px solid #333';
+    } else {
+      btn.style.backgroundColor = '#fff';
+      btn.style.color = '#333';
+      btn.style.border = '1px solid #ddd';
+    }
+    
+    btn.addEventListener('click', () => {
+      currentPage = i;
+      displayPage(currentPage);
+      updatePaginationActiveButton();
+    });
+    
+    paginationContainer.appendChild(btn);
+  }
+}
+
+function updatePaginationActiveButton() {
+  document.querySelectorAll('.pagination-btn').forEach((btn, index) => {
+    if (index + 1 === currentPage) {
+      btn.classList.add('active');
+      btn.style.backgroundColor = '#333';
+      btn.style.color = '#fff';
+      btn.style.border = '1px solid #333';
+    } else {
+      btn.classList.remove('active');
+      btn.style.backgroundColor = '#fff';
+      btn.style.color = '#333';
+      btn.style.border = '1px solid #ddd';
+    }
+  });
+}
+
+// Also add a CSS style block to the head
+function addPaginationStyles() {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = `
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      gap: 8px;
+    }
+    
+    .pagination-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .pagination-btn.active {
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #333;
+    }
+    
+    .pagination-btn:not(.active) {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .pagination-btn:hover:not(.active) {
+      background-color: #f5f5f5;
+    }
+    
+    .category-filter {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .category-btn {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .category-btn:hover {
+      background-color: #f0f0f0;
+    }
+  `;
+  document.head.appendChild(styleElement);
+}
+
+// Update window.onload to include our new functions
+window.onload = function() {
+  loadCartFromStorage();
+  addPaginationStyles();
+  loadProducts();
+  setupCartFunctionality();
+  setupSearchFunctionality();
+}
+
+  window.onload = () => {
+    loadCartFromStorage();
+    loadProducts();
+  };
+
+    function addCartButtonListeners() {
+  const addToCartButtons = document.querySelectorAll('.card-action-btn');
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Check if button is disabled
+      if (this.disabled) {
+        showToast('This product is out of stock!');
+        return;
+      }
+      
+      const productId = this.getAttribute('data-id');
+      const productName = this.getAttribute('data-name');
+      const productPrice = parseFloat(this.getAttribute('data-price'));
+      const productImage = this.getAttribute('data-image');
+      const productStock = parseInt(this.getAttribute('data-stock') || '0');
+      
+      addToCart(productId, productName, productPrice, productImage, productStock);
+    });
+  });
+}
+    function addToCart(id, name, price, image, availableStock) {
+  const existingItem = cart.find(item => item.id === id);
+  
+  if (existingItem) {
+    // CHECK IF ADDING ONE MORE EXCEEDS AVAILABLE STOCK
+    if (existingItem.quantity >= availableStock) {
+      showToast(`Cannot add more ${name}. Only ${availableStock} available in stock.`);
+      return;
+    }
+    existingItem.quantity += 1;
+  } else {
+    // CHECK IF STOCK IS AVAILABLE
+    if (availableStock <= 0) {
+      showToast(`${name} is out of stock!`);
+      return;
+    }
+    cart.push({ id, name, price, image, quantity: 1, maxStock: availableStock });
+  }
+  
+  updateCartCount();
+  saveCartToStorage();
+  showToast(`${name} added to cart!`);
+  
+  // UPDATE BUTTON IF STOCK LIMIT REACHED
+  updateCartButtonState(id, availableStock);
+}
+
+function updateCartButtonState(productId, availableStock) {
+  const existingItem = cart.find(item => item.id === productId);
+  const button = document.querySelector(`[data-id="${productId}"]`);
+  
+  if (button && existingItem && existingItem.quantity >= availableStock) {
+    button.disabled = true;
+    button.style.opacity = '0.5';
+    button.style.cursor = 'not-allowed';
+    button.title = 'Maximum stock reached';
+  }
+}
+
+    function updateCartCount() {
+      const cartCounts = document.querySelectorAll('.btn-badge');
+      let count = 0;
+      cart.forEach(item => count += item.quantity);
+      cartCounts.forEach(badge => {
+        badge.textContent = count;
+      });
+    }
+
+    // Add this new function to check and update stock status:
+
+function checkAndUpdateStockStatus() {
+  // UPDATE BUTTON STATES BASED ON CURRENT CART
+  cart.forEach(cartItem => {
+    const button = document.querySelector(`[data-id="${cartItem.id}"]`);
+    if (button) {
+      const availableStock = parseInt(button.getAttribute('data-stock'));
+      if (cartItem.quantity >= availableStock) {
+        button.disabled = true;
+        button.style.opacity = '0.5';
+        button.style.cursor = 'not-allowed';
+        button.title = 'Maximum stock reached';
+      }
+    }
+  });
+}
+
+// Add this function to get current stock for a product
+function getCurrentStock(productId) {
+  const product = allProducts.find(p => 
+    p.getElementsByTagName('id')[0].textContent === productId
+  );
+  
+  if (product && product.getElementsByTagName('stock')[0]) {
+    return parseInt(product.getElementsByTagName('stock')[0].textContent);
+  }
+  
+  return 0;
+}
+
+// Update the existing loadCartFromStorage function:
+function loadCartFromStorage() {
+  const savedCart = localStorage.getItem('catProductsCart');
+  if (savedCart) {
+    cart = JSON.parse(savedCart);
+    updateCartCount();
+    // CHECK STOCK STATUS AFTER LOADING CART
+    setTimeout(checkAndUpdateStockStatus, 1000);
+  }
+}
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function setupCartFunctionality() {
+      document.getElementById('cartIcon').addEventListener('click', () => {
+        window.location.href = 'cart.html';
+      });
+    }
+    // First, let's modify the existing script to add search functionality
+
+// Add this function to handle searching
+function searchProducts(query) {
+  query = query.toLowerCase().trim();
+  const productItems = document.querySelectorAll('#productList li');
+  let foundItems = 0;
+  
+  productItems.forEach(item => {
+    const productName = item.querySelector('.card-title').textContent.toLowerCase();
+    if (query === '' || productName.includes(query)) {
+      item.style.display = 'block';
+      foundItems++;
+    } else {
+      item.style.display = 'none';
+    }
+  });
+  
+  // Show a message if no products found
+  const existingMessage = document.getElementById('noProductsMessage');
+  if (existingMessage) {
+    existingMessage.remove();
+  }
+  
+  if (foundItems === 0 && query !== '') {
+    const message = document.createElement('div');
+    message.id = 'noProductsMessage';
+    message.style.textAlign = 'center';
+    message.style.padding = '20px';
+    message.style.width = '100%';
+    message.innerHTML = `<p>No products found for "${query}". Try a different search term.</p>`;
+    document.getElementById('productList').appendChild(message);
+  }
+  
+  return foundItems;
+}
+
+// Create and show the search modal
+function showSearchModal() {
+  // Remove any existing search modal
+  const existingModal = document.getElementById('searchModal');
+  if (existingModal) {
+    existingModal.remove();
+  }
+  
+  // Create modal elements
+  const modal = document.createElement('div');
+  modal.id = 'searchModal';
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+  modal.style.zIndex = '1000';
+  modal.style.display = 'flex';
+  modal.style.justifyContent = 'center';
+  modal.style.alignItems = 'flex-start';
+  modal.style.padding = '100px 20px 20px';
+  
+  const searchContainer = document.createElement('div');
+  searchContainer.style.width = '100%';
+  searchContainer.style.maxWidth = '600px';
+  searchContainer.style.backgroundColor = 'white';
+  searchContainer.style.borderRadius = '8px';
+  searchContainer.style.padding = '20px';
+  searchContainer.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+  
+  const searchHeader = document.createElement('div');
+  searchHeader.style.display = 'flex';
+  searchHeader.style.justifyContent = 'space-between';
+  searchHeader.style.alignItems = 'center';
+  searchHeader.style.marginBottom = '15px';
+  
+  const searchTitle = document.createElement('h3');
+  searchTitle.textContent = 'Search Products';
+  searchTitle.style.margin = '0';
+  
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = '&times;';
+  closeButton.style.border = 'none';
+  closeButton.style.background = 'none';
+  closeButton.style.fontSize = '24px';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.padding = '0 5px';
+  closeButton.addEventListener('click', () => modal.remove());
+  
+  const searchForm = document.createElement('div');
+  searchForm.style.display = 'flex';
+  searchForm.style.gap = '10px';
+  
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = 'Search for products...';
+  searchInput.style.flex = '1';
+  searchInput.style.padding = '10px';
+  searchInput.style.border = '1px solid #ddd';
+  searchInput.style.borderRadius = '4px';
+  searchInput.style.fontSize = '16px';
+  
+  const searchButton = document.createElement('button');
+  searchButton.textContent = 'Search';
+  searchButton.style.padding = '10px 20px';
+  searchButton.style.backgroundColor = 'var(--eerie-black, #222)';
+  searchButton.style.color = 'white';
+  searchButton.style.border = 'none';
+  searchButton.style.borderRadius = '4px';
+  searchButton.style.cursor = 'pointer';
+  searchButton.style.fontSize = '16px';
+  
+  // Assemble the modal
+  searchHeader.appendChild(searchTitle);
+  searchHeader.appendChild(closeButton);
+  
+  searchForm.appendChild(searchInput);
+  searchForm.appendChild(searchButton);
+  
+  searchContainer.appendChild(searchHeader);
+  searchContainer.appendChild(searchForm);
+  
+  modal.appendChild(searchContainer);
+  document.body.appendChild(modal);
+  
+  // Focus the input
+  searchInput.focus();
+  
+  // Add search functionality
+  const performSearch = () => {
+    const query = searchInput.value;
+    const results = searchProducts(query);
+    modal.remove();
+    
+    // Scroll to product section
+    document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    
+    // Show toast with results
+    if (query.trim() !== '') {
+      showToast(`Found ${results} product${results !== 1 ? 's' : ''} for "${query}"`);
+    }
+  };
+  
+  searchButton.addEventListener('click', performSearch);
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+}
+
+function setupSearchFunctionality() {
+  const searchButtons = document.querySelectorAll('.action-btn[aria-label="Search"]');
+  searchButtons.forEach(button => {
+    button.addEventListener('click', showSearchModal);
+  });
+}
+
+window.onload = function() {
+  loadCartFromStorage();
+  addPaginationStyles();
+  loadProducts();
+  setupCartFunctionality();
+  setupSearchFunctionality();
+  setTimeout(checkAndUpdateStockStatus, 1500);
+}
+  </script>
+
+</body>
+
+</html>

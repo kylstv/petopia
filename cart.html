@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/style.css"> 
+  <title>Shopping Cart - Cat Products</title>
+  
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<style>
+    .cart-page {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eee;
+    }
+    
+    .cart-header h1 {
+      margin: 0;
+    }
+    
+    .continue-shopping {
+      text-decoration: none;
+      color: hsl(15, 84%, 57%);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .cart-table th {
+      text-align: left;
+      padding: 12px;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .cart-table td {
+      padding: 15px 12px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+    
+    .product-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+    
+    .product-name {
+      font-weight: 500;
+    }
+    
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quantity-btn {
+      width: 30px;
+      height: 30px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .quantity-input {
+      width: 50px;
+      height: 30px;
+      text-align: center;
+      margin: 0 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .remove-btn {
+      background-color: transparent;
+      border: none;
+      color: #ff4d4d;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .cart-summary {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+    
+    .summary-card {
+      width: 350px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+    
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    
+    .summary-row.total {
+      font-weight: bold;
+      font-size: 1.2em;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .checkout-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: hsl(15, 84%, 57%);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    
+    .checkout-btn:hover {
+      background-color: hsl(15, 84%, 45%);
+    }
+    
+    .empty-cart {
+      text-align: center;
+      padding: 50px 0;
+    }
+    
+    .empty-cart-icon {
+      font-size: 80px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    
+    .empty-cart-message {
+      font-size: 20px;
+      margin-bottom: 30px;
+      color: #666;
+    }
+    
+    .shop-now-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: hsl(15, 84%, 57%);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .modal-header h2 {
+      margin: 0;
+      color: #333;
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+    }
+    
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .payment-option.selected {
+      border-color: hsl(15, 84%, 57%);
+      background-color: rgba(243, 102, 56, 0.05);
+    }
+    
+    .payment-logo {
+      width: 60px;
+      height: 40px;
+      object-fit: contain;
+      margin-right: 15px;
+    }
+    
+    .payment-details {
+      flex-grow: 1;
+    }
+    
+    .payment-title {
+      font-weight: 500;
+      margin: 0 0 5px 0;
+    }
+    
+    .payment-description {
+      color: #666;
+      font-size: 14px;
+      margin: 0;
+    }
+    
+    .gcash-form {
+      display: none;
+      margin-top: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .btn-pay {
+      width: 100%;
+      padding: 12px;
+      background-color: #00aad2; /* GCash blue */
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    
+    .btn-pay:hover {
+      background-color: #0095b8;
+    }
+    
+    /* Loading spinner */
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #00aad2;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Success message */
+    .payment-success {
+      display: none;
+      text-align: center;
+      padding: 30px;
+    }
+    
+    .success-icon {
+      color: #4CAF50;
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .cart-table thead {
+        display: none;
+      }
+      
+      .cart-table tr {
+        display: block;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+      }
+      
+      .cart-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+      }
+      
+      .cart-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+      }
+      
+      .cart-table td:last-child {
+        border-bottom: none;
+      }
+    }
+  </style>
+<body>
+  <div class="cart-page">
+    <div class="cart-header">
+      <h1>Shopping Cart</h1>
+      <a href="shop.html" class="continue-shopping">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Continue Shopping
+      </a>
+    </div>
+    
+    <div id="cartContent">
+      <!-- Cart content will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Checkout</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <div id="checkoutStep1">
+        <h3>Select Payment Method</h3>
+        <div class="payment-options">
+          <div class="payment-option" data-payment="gcash">
+            <img src="https://assets.stickpng.com/images/60e7f964711cf700048b6a6a.png" alt="GCash" class="payment-logo">
+            <div class="payment-details">
+              <h4 class="payment-title">GCash</h4>
+              <p class="payment-description">Pay securely using your GCash account</p>
+            </div>
+          </div>
+          
+          <div class="payment-option" data-payment="card">
+            <img src="https://png.pngtree.com/png-clipart/20190516/original/pngtree-credit-card-icon-png-image_3568392.jpg" alt="Credit Card" class="payment-logo">
+            <div class="payment-details">
+              <h4 class="payment-title">Credit/Debit Card</h4>
+              <p class="payment-description">Pay with Visa, Mastercard, or other cards</p>
+            </div>
+          </div>
+          
+          <div class="payment-option" data-payment="cod">
+            <ion-icon name="cash-outline" style="font-size: 30px; margin-right: 15px; color: #4CAF50;"></ion-icon>
+            <div class="payment-details">
+              <h4 class="payment-title">Cash on Delivery</h4>
+              <p class="payment-description">Pay when you receive your items</p>
+            </div>
+          </div>
+        </div>
+        
+        <div id="gcashForm" class="gcash-form">
+          <div class="form-group">
+            <label for="gcashNumber">GCash Number</label>
+            <input type="text" id="gcashNumber" placeholder="09XX XXX XXXX" maxlength="11">
+          </div>
+          <div class="form-group">
+            <label for="gcashName">Account Name</label>
+            <input type="text" id="gcashName" placeholder="Full Name">
+          </div>
+          <button id="processGcashPayment" class="btn-pay">
+            <ion-icon name="wallet-outline"></ion-icon>
+            Pay with GCash
+          </button>
+        </div>
+        
+        <button id="continuePayment" class="checkout-btn" style="display: none;">Continue to Payment</button>
+      </div>
+      
+      <!-- Loading spinner section -->
+      <div id="loadingPayment" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Processing your payment...</p>
+        <p>Please do not close this window</p>
+      </div>
+      
+      <!-- Success message section -->
+      <div id="paymentSuccess" class="payment-success">
+        <div class="success-icon">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </div>
+        <h3>Payment Successful!</h3>
+        <p>Your order has been placed successfully.</p>
+        <p>Order Reference: <span id="orderReference"></span></p>
+        <button class="checkout-btn" onclick="window.location.href='shop.html'">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  let cart = [];
+
+  function loadCartFromStorage() {
+    const savedCart = localStorage.getItem('catProductsCart');
+    if (savedCart) {
+      cart = JSON.parse(savedCart);
+    }
+    renderCart();
+  }
+
+  function saveCartToStorage() {
+    localStorage.setItem('catProductsCart', JSON.stringify(cart));
+  }
+
+  function renderCart() {
+    const cartContent = document.getElementById('cartContent');
+
+    if (cart.length === 0) {
+      cartContent.innerHTML = `
+        <div class="empty-cart">
+          <div class="empty-cart-icon">
+            <ion-icon name="cart-outline"></ion-icon>
+          </div>
+          <div class="empty-cart-message">Your cart is empty</div>
+          <a href="shop.html" class="shop-now-btn">Shop Now</a>
+        </div>
+      `;
+      return;
+    }
+
+    let subtotal = 0;
+    let totalItems = 0;
+
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+      totalItems += item.quantity;
+    });
+
+    const shipping = subtotal >= 3000 ? 0 : 36;
+
+    const cartHTML = `
+      <form id="cartForm">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll"></th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${cart.map(item => `
+              <tr>
+                <td><input type="checkbox" class="item-checkbox" data-id="${item.id}" checked></td>
+                <td>
+                  <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="${item.image}" alt="${item.name}" class="product-image">
+                    <span class="product-name">${item.name}</span>
+                  </div>
+                </td>
+                <td>₱${item.price}</td>
+                <td>
+                  <div class="quantity-selector">
+                    <button class="quantity-btn decrease-qty" data-id="${item.id}">-</button>
+                    <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.id}">
+                    <button class="quantity-btn increase-qty" data-id="${item.id}">+</button>
+                  </div>
+                </td>
+                <td>₱${item.price * item.quantity}</td>
+                <td>
+                  <button class="remove-btn" data-id="${item.id}">
+                    <ion-icon name="trash-outline"></ion-icon>
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </form>
+
+      <div class="cart-summary">
+        <div class="summary-card">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span>Items (${totalItems}):</span>
+            <span>₱${subtotal}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping:</span>
+            <span>${shipping === 0 ? 'FREE' : `₱${shipping}`}</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span>₱${subtotal + shipping}</span>
+          </div>
+          <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+        </div>
+      </div>
+    `;
+
+    cartContent.innerHTML = cartHTML;
+    addCartEventListeners();
+  }
+
+  function addCartEventListeners() {
+    document.querySelectorAll('.decrease-qty').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        updateItemQuantity(btn.getAttribute('data-id'), 'decrease');
+      });
+    });
+    document.querySelectorAll('.increase-qty').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        updateItemQuantity(btn.getAttribute('data-id'), 'increase');
+      });
+    });
+    document.querySelectorAll('.quantity-input').forEach(input => {
+      input.addEventListener('change', () => {
+        const id = input.getAttribute('data-id');
+        const val = parseInt(input.value);
+        updateItemQuantity(id, 'set', val < 1 ? 1 : val);
+      });
+    });
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        removeFromCart(btn.getAttribute('data-id'));
+      });
+    });
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', () => {
+        openCheckoutModal();
+      });
+    }
+    document.getElementById('selectAll')?.addEventListener('change', () => {
+      document.querySelectorAll('.item-checkbox').forEach(cb => {
+        cb.checked = document.getElementById('selectAll').checked;
+      });
+    });
+  }
+
+  function updateItemQuantity(id, action, value = null) {
+    const index = cart.findIndex(i => i.id === id);
+    if (index !== -1) {
+      if (action === 'increase') cart[index].quantity++;
+      else if (action === 'decrease' && cart[index].quantity > 1) cart[index].quantity--;
+      else if (action === 'set') cart[index].quantity = value;
+      saveCartToStorage();
+      renderCart();
+    }
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCartToStorage();
+    renderCart();
+  }
+
+  // Checkout modal functions
+  function openCheckoutModal() {
+    if (cart.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    const modal = document.getElementById('checkoutModal');
+    modal.style.display = 'block';
+
+    document.getElementById('checkoutStep1').style.display = 'block';
+    document.getElementById('loadingPayment').style.display = 'none';
+    document.getElementById('paymentSuccess').style.display = 'none';
+    document.getElementById('continuePayment').style.display = 'none';
+    document.getElementById('gcashForm').style.display = 'none';
+
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+  }
+
+  function setupCheckoutListeners() {
+    document.querySelector('.close-modal').onclick = () => {
+      document.getElementById('checkoutModal').style.display = 'none';
+    };
+    window.onclick = e => {
+      if (e.target === document.getElementById('checkoutModal')) {
+        document.getElementById('checkoutModal').style.display = 'none';
+      }
+    };
+
+    // Payment method selection
+    document.querySelectorAll('.payment-option').forEach(opt => {
+      opt.onclick = () => {
+        document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+
+        const method = opt.getAttribute('data-payment');
+        const gcashForm = document.getElementById('gcashForm');
+        const continueBtn = document.getElementById('continuePayment');
+
+        if (method === 'gcash') {
+          gcashForm.style.display = 'block';
+          continueBtn.style.display = 'none';
+        } else {
+          gcashForm.style.display = 'none';
+          continueBtn.style.display = 'block';
+        }
+      };
+    });
+
+    // GCash payment
+    document.getElementById('processGcashPayment').onclick = () => {
+      const gcashNumber = document.getElementById('gcashNumber').value.trim();
+      const gcashName = document.getElementById('gcashName').value.trim();
+      if (!/^09\d{9}$/.test(gcashNumber)) {
+        alert('Please enter a valid GCash number (format: 09XX XXX XXXX)');
+        return;
+      }
+      if (!gcashName) {
+        alert('Please enter your GCash account name');
+        return;
+      }
+      processPayment('gcash', { gcashNumber, gcashName });
+    };
+
+    // Continue with other payment methods
+    document.getElementById('continuePayment').onclick = () => {
+      const selected = document.querySelector('.payment-option.selected');
+      if (!selected) {
+        alert('Please select a payment method');
+        return;
+      }
+      const method = selected.getAttribute('data-payment');
+      processPayment(method);
+    };
+  }
+
+const userEmail = "kylecarx.com";
+
+function processPayment(method, data = {}) {
+  // Show loading
+  document.getElementById('checkoutStep1').style.display = 'none';
+  document.getElementById('loadingPayment').style.display = 'block';
+
+  const orderRef = 'ORD-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+  document.getElementById('orderReference').textContent = orderRef;
+
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = totalPrice >= 3000 ? 0 : 36;
+
+  const transactionPayload = {
+    orderReference: orderRef,
+    email: userEmail, // pass the email here
+    totalPrice: totalPrice + shipping,
+    paymentMethod: method,
+    items: cart.map(item => ({
+      productId: item.id,
+      productName: item.name,
+      quantity: item.quantity,
+      unitPrice: item.price,
+      subtotal: item.price * item.quantity
+    }))
+  };
+
+  fetch('save_transaction.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(transactionPayload)
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.status === 'success') {
+      document.getElementById('loadingPayment').style.display = 'none';
+      document.getElementById('paymentSuccess').style.display = 'block';
+      cart = [];
+      localStorage.removeItem('catProductsCart');
+      renderCart();
+    } else {
+      alert('Error saving transaction.');
+    }
+  })
+  .catch(() => alert('Error processing transaction.'));
+}
+
+  window.onload = () => {
+    loadCartFromStorage();
+    setupCheckoutListeners();
+  };
+</script>
+</body>
+</html>
