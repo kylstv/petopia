@@ -5,9 +5,9 @@ error_reporting(E_ALL);
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer\PHPMailer\PHPMailer\src\Exception.php';
-require 'PHPMailer\PHPMailer\PHPMailer\src\PHPMailer.php';
-require 'PHPMailer\PHPMailer\PHPMailer\src\SMTP.php';
+require 'PHPMailer/PHPMailer/PHPMailer/src/Exception.php';
+require 'PHPMailer/PHPMailer/PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/PHPMailer/PHPMailer/src/SMTP.php';
 
 $firstName = $middleName = $lastName = $email = $username = $password = $confirmPassword = "";
 $error = $success = "";
