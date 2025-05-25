@@ -3,7 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include "connect.php";
+if (!isset($pdo)) {
+    die("Database connection failed: \$pdo is not set.");
+}
 
 // Verify admin password function
 function verifyAdminPassword($pdo, $password) {
