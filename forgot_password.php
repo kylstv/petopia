@@ -15,7 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
     // Connect to database
-    include "connect.php";
+    $conn = new mysqli("localhost", "root", "", "kitter");
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
     // Check if email exists
     $sql = "SELECT * FROM signup WHERE email = ?";
