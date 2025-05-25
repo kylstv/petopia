@@ -97,12 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error = "reCAPTCHA verification failed. Please try again.";
                 $showCaptcha = true;
             } else {
-                // Captcha is valid, proceed with account creation and OTP sending
-                $conn = new mysqli("localhost", "root", "", "kitter");
                 
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+              include "connect.php";
                 
                 // Generate a random 6-digit OTP
                 $otp = rand(100000, 999999);
