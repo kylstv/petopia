@@ -1,6 +1,9 @@
 <?php
 // Database connection
-include "connect.php";
+$db_host = 'localhost';
+    $db_user = 'u801377270_petopiaph_2025';
+    $db_pass = 'Petopiaph_2025';
+    $db_name = 'u801377270_petopiaph_2025';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
