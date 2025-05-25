@@ -13,10 +13,7 @@ $message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $otp = $_POST['otp'];
 
-    $conn = new mysqli("localhost", "root", "", "kitter");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include "connect.php";
 
     $sql = "SELECT * FROM signup WHERE email = ? AND otp = ?";
     $stmt = $conn->prepare($sql);
