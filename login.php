@@ -68,10 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $remember = isset($_POST['remember']);
 
-    $conn = new mysqli("localhost", "root", "", "kitter");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include "connect.php";
 
     $sqlAdmin = "SELECT * FROM admin WHERE email = ?";
     $stmtAdmin = $conn->prepare($sqlAdmin);
