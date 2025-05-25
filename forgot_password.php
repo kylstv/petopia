@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'C:\xampp\htdocs\1\PHPMailer\PHPMailer\PHPMailer\src\Exception.php';
-require 'C:\xampp\htdocs\1\PHPMailer\PHPMailer\PHPMailer\src\PHPMailer.php';
-require 'C:\xampp\htdocs\1\PHPMailer\PHPMailer\PHPMailer\src\SMTP.php';
+require 'PHPMailer\PHPMailer\PHPMailer\src\Exception.php';
+require 'PHPMailer\PHPMailer\PHPMailer\src\PHPMailer.php';
+require 'PHPMailer\PHPMailer\PHPMailer\src\SMTP.php';
 
 $error = "";
 $success = "";
