@@ -29,11 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($password !== $confirmPassword) {
             $error = "Passwords do not match!";
         } else {
-            $conn = new mysqli("localhost", "root", "", "kitter");
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include "connect.php";
 
             $checkEmailSql = "SELECT * FROM signup WHERE email = ?";
             $checkStmt = $conn->prepare($checkEmailSql);
