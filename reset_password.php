@@ -21,11 +21,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($password !== $confirm_password) {
         $error = "Passwords do not match.";
     } else {
-        // Update password in database
-        $conn = new mysqli("localhost", "root", "", "kitter");
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        
+      include "connect.php";
         
         // Update the password directly without hashing and clear the OTP
         $sql = "UPDATE signup SET password = ?, otp = NULL WHERE email = ?";
