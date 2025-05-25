@@ -1,12 +1,12 @@
 <?php
 // Database connection
 $db_host = 'localhost';
-    $db_user = 'u801377270_petopiaph_2025';
-    $db_pass = 'Petopiaph_2025';
-    $db_name = 'u801377270_petopiaph_2025';
+$db_user = 'u801377270_petopiaph_2025';
+$db_pass = 'Petopiaph_2025';
+$db_name = 'u801377270_petopiaph_2025';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
